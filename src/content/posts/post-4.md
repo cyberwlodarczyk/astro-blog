@@ -1,9 +1,8 @@
 ---
-layout: "../../layouts/MarkdownPostLayout.astro"
 title: "My Fourth Blog Post"
-pubDate: 2022-09-17
 author: "Astro Learner"
 description: "This post will show up on its own!"
+pubDate: 2022-09-17
 image:
   url: "https://docs.astro.build/default-og-image.png"
   alt: "The word astro against an illustration of planets and stars."

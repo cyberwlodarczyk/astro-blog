@@ -1,11 +1,19 @@
-import rss, { pagesGlobToRssItems } from "@astrojs/rss";
+import rss from "@astrojs/rss";
+import { getCollection } from "astro:content";
 
 export async function GET({ site }) {
+  const posts = await getCollection("posts");
+
   return rss({
     title: "Astro Learner | Blog",
     description: "My journey learning Astro",
     site,
-    items: await pagesGlobToRssItems(import.meta.glob("./**/*.md")),
+    items: posts.map(({ slug, data: { title, description, pubDate } }) => ({
+      title,
+      description,
+      pubDate,
+      link: `/posts/${slug}/`,
+    })),
     customData: `<language>en-us</language>`,
   });
 }

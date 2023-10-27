@@ -1,9 +1,8 @@
 ---
-layout: "../../layouts/MarkdownPostLayout.astro"
 title: "My Third Blog Post"
-pubDate: 2022-09-01
 author: "Astro Learner"
 description: "I had some challenges, but asking in the community really helped!"
+pubDate: 2022-09-01
 image:
   url: "https://docs.astro.build/assets/rays.webp"
   alt: "Thumbnail of Astro rays."

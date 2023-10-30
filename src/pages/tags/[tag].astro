@@ -1,33 +1,37 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, type CollectionEntry } from "astro:content";
+import Posts from "../../components/Posts.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import BlogPost from "../../components/BlogPost.astro";
 
-export async function getStaticPaths() {
-  const allPosts = await getCollection("posts");
-  const uniqueTags = [
-    ...new Set(allPosts.map(({ data: { tags } }) => tags).flat()),
-  ];
+export const getStaticPaths = async () => {
+  const posts = await getCollection("posts");
+  const tags = [...new Set(posts.map(({ data: { tags } }) => tags).flat())];
 
-  return uniqueTags.map((tag) => {
-    const filteredPosts = allPosts.filter(({ data: { tags } }) =>
-      tags?.includes(tag)
-    );
-    return { params: { tag }, props: { posts: filteredPosts } };
+  return tags.map((tag) => {
+    return {
+      params: { tag },
+      props: {
+        posts: posts.filter(({ data: { tags } }) => tags.includes(tag)),
+      },
+    };
   });
+};
+
+interface Props {
+  posts: CollectionEntry<"posts">[];
 }
 
 const { tag } = Astro.params;
 const { posts } = Astro.props;
+
+const capitalize = (s: string) => {
+  return s[0].toUpperCase() + s.slice(1);
+};
+
+const title = capitalize(tag!.replaceAll("-", " "));
 ---
 
-<BaseLayout pageTitle={tag}>
-  <p>Posts tagged with {tag}</p>
-  <ul>
-    {
-      posts.map(({ slug, data: { title } }) => (
-        <BlogPost url={`/posts/${slug}`} title={title} />
-      ))
-    }
-  </ul>
+<BaseLayout title={title}>
+  <p>Posts tagged with '{tag}'</p>
+  <Posts data={posts} />
 </BaseLayout>

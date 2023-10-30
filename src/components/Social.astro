@@ -1,14 +1,25 @@
 ---
-const { platform, username } = Astro.props;
+interface Props {
+  url: string;
+  platform: string;
+}
+
+const { url, platform } = Astro.props;
 ---
+
+<a target="_blank" rel="noopener noreferrer" href={url}>{platform}</a>
 
 <style>
   a {
-    padding: 0.5rem 1rem;
-    color: white;
-    background-color: #4c1d95;
+    border-radius: 4px;
+    padding: 8px 16px;
+    color: #f4fffd;
+    background-color: #011936;
     text-decoration: none;
+    text-align: center;
+  }
+
+  a:hover {
+    text-decoration: underline;
   }
 </style>
-
-<a href={`https://www.${platform}.com/${username}`}>{platform}</a>

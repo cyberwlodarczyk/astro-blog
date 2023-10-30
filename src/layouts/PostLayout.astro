@@ -1,0 +1,33 @@
+---
+import type { CollectionEntry } from "astro:content";
+import Tags from "../components/Tags.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+type Props = CollectionEntry<"posts">["data"];
+
+const { author, image, pubDate, tags, title } = Astro.props;
+---
+
+<BaseLayout title={title}>
+  <img src={image.src.src} alt={image.alt} />
+  <Tags data={tags} />
+  <p>{pubDate.toDateString()} | <a href="/about">{author}</a></p>
+  <slot />
+</BaseLayout>
+
+<style>
+  img {
+    width: 100%;
+  }
+
+  p {
+    text-align: center;
+  }
+
+  @media screen and (min-width: 400px) {
+    img {
+      width: 300px;
+      margin: 0 auto;
+    }
+  }
+</style>

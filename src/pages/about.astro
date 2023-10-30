@@ -1,31 +1,11 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 
-const pageTitle = "About me";
-
-const identity = {
-  firstName: "Łukasz",
-  country: "Poland",
-  hobbies: ["programming", "birdwatching"],
-};
-
-const skills = [
-  "HTML",
-  "CSS",
-  "JavaScript",
-  "React",
-  "Astro",
-  "Go",
-  "Rust",
-  "Python",
-];
-
-const happy = true;
-const finished = true;
-const goal = 3;
+const hobbies = ["programming", "birdwatching"];
+const skills = ["HTML", "CSS", "JavaScript", "React", "Astro", "Go", "Python"];
 ---
 
-<BaseLayout pageTitle={pageTitle}>
+<BaseLayout title="About me">
   <h2>... and my new Astro site!</h2>
   <p>
     I am working through Astro's introductory tutorial. This is the second page
@@ -37,14 +17,12 @@ const goal = 3;
   </p>
   <p>Here are a few facts about me:</p>
   <ul>
-    <li>My name is {identity.firstName}.</li>
-    <li>
-      I live in {identity.country}.
-    </li>
+    <li>My name is Łukasz Włodarczyk.</li>
+    <li>I live in Poland.</li>
     {
-      identity.hobbies.length >= 2 && (
+      hobbies.length >= 2 && (
         <li>
-          Two of my hobbies are: {identity.hobbies[0]} and {identity.hobbies[1]}
+          Two of my hobbies are: {hobbies[0]} and {hobbies[1]}.
         </li>
       )
     }
@@ -53,13 +31,6 @@ const goal = 3;
   <ul>
     {skills.map((skill) => <li class="skill">{skill}</li>)}
   </ul>
-  {happy && <p>I am happy to be learning Astro!</p>}
-  {finished && <p>I finished this tutorial!</p>}
-  {
-    goal === 3 ? (
-      <p>My goal is to finish in 3 days.</p>
-    ) : (
-      <p>My goal is not 3 days.</p>
-    )
-  }
+  <p>I am happy to be learning Astro!</p>
+  <p>I've already finished this tutorial!</p>
 </BaseLayout>

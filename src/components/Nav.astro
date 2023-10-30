@@ -1,0 +1,95 @@
+<nav>
+  <button class="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+  <div class="navigation">
+    <a href="/">Home</a>
+    <a href="/about">About</a>
+    <a href="/posts">Posts</a>
+    <a href="/tags">Tags</a>
+  </div>
+</nav>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const hamburger = document.querySelector(".hamburger");
+    const navigation = document.querySelector(".navigation");
+
+    if (navigation && hamburger) {
+      navigation.classList.remove("expanded");
+
+      hamburger.addEventListener("click", () => {
+        navigation.classList.toggle("expanded");
+      });
+    }
+  });
+</script>
+
+<style>
+  nav {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hamburger {
+    align-self: flex-start;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 10px;
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+  }
+
+  .hamburger span {
+    display: block;
+    width: 35px;
+    height: 5px;
+    background-color: #011936;
+  }
+
+  .navigation {
+    display: none;
+  }
+
+  .navigation.expanded {
+    display: unset;
+  }
+
+  .navigation a {
+    display: block;
+    color: #011936;
+    padding: 12px;
+    text-decoration: none;
+    text-align: center;
+    font-size: 1.25rem;
+    font-weight: 700;
+  }
+
+  .navigation a:hover {
+    text-decoration: underline;
+  }
+
+  @media screen and (min-width: 600px) {
+    nav {
+      align-items: center;
+    }
+
+    .hamburger {
+      display: none;
+    }
+
+    .navigation,
+    .navigation.expanded {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .navigation a {
+      padding: 6px 16px;
+    }
+  }
+</style>

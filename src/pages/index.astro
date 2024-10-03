@@ -1,8 +1,41 @@
 ---
-import Greeting from "../components/Greeting.astro";
+import Button from "../components/Button.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
 <BaseLayout title="Home page">
-  <Greeting />
+  <h2>
+    <span data-greeting-message class="greeting-message">Hi!</span> Thank you for
+    visiting my blog!
+  </h2>
+  <Button data-greeting-button>New greeting</Button>
 </BaseLayout>
+
+<style>
+  .greeting-message {
+    color: #215948;
+  }
+</style>
+
+<script>
+  const messages = ["Hi", "Hello", "Howdy", "Hey there"];
+
+  const randomMessage = () => {
+    return messages[Math.floor(Math.random() * messages.length)];
+  };
+
+  document.addEventListener("astro:page-load", () => {
+    const message = document.querySelector("[data-greeting-message]");
+    const button = document.querySelector("[data-greeting-button]");
+
+    if (message && button) {
+      button.addEventListener("click", () => {
+        let msg: string;
+        do {
+          msg = `${randomMessage()}!`;
+        } while (msg === message.textContent);
+        message.textContent = msg;
+      });
+    }
+  });
+</script>
